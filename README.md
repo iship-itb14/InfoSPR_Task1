@@ -9,9 +9,11 @@ Tasks Overview:
 •	Task 2: Research GPT-4 (LLM), and understand how it can be used for supply chain management, such as predicting demand, analyzing trends, and generating insights.
 ________________________________________
 2. Task 1: Integrating Data APIs with Python
+   
 2.1 What are APIs?
 An API (Application Programming Interface) allows different software applications to communicate with each other. APIs are essential for connecting different systems, retrieving data, and processing it.
 For this project, we will use APIs from various supply chain and logistics data sources to retrieve real-time data on shipping, inventory, global trade, and financials.
+
 2.2 The APIs Used
 Below are the APIs provided for the project, with a brief explanation of each:
 1.	Event Registry API:
@@ -41,6 +43,7 @@ o	Use Case: Leveraging Kaggle’s datasets for training machine learning models 
 9.	Dun & Bradstreet API:
 o	Provides business data such as company profiles, industry trends, and financial data.
 o	Use Case: Analyzing supplier financial stability and risk assessment for decision-making in supply chain management.
+
 2.3 Python Code to Retrieve Data from APIs
 For integration, we used Python's requests library to make API calls and retrieve data. Here's an example of how you might retrieve data from an API:
 python
@@ -62,23 +65,29 @@ if response.status_code == 200:
     print("Data fetched successfully:", data)
 else:
     print("Error fetching data:", response.status_code)
+    
 2.4 Key Learnings about APIs
 •	Authentication: Most APIs require an API key for authentication. Always store your API key securely and never expose it in public repositories.
 •	Rate Limiting: APIs often limit how many requests you can make in a certain period, so be mindful of request limits.
 •	Response Formats: APIs typically return data in JSON or XML format. JSON is widely used because it’s easy to parse and work with in Python.
 •	Error Handling: Always check the response status code and handle errors (e.g., timeouts, rate limits) gracefully.
+
 ________________________________________
 3. Task 2: Researching and Using GPT-4 for Supply Chain Management
+
 3.1 What is GPT-4?
 GPT-4 (Generative Pre-trained Transformer 4) is a state-of-the-art language model developed by OpenAI. It’s capable of performing tasks like natural language understanding, content generation, translation, summarization, and more. GPT-4 can be fine-tuned for specific applications, making it highly useful for various domains, including Supply Chain Management.
+
 3.2 Applications of GPT-4 in Supply Chain Management
 GPT-4 can be utilized in supply chain management for several purposes, such as:
 •	Demand Forecasting: GPT-4 can analyze historical sales data, economic indicators, and other relevant factors to predict future demand.
 •	Supply Chain Optimization: By processing large datasets from multiple sources (like APIs), GPT-4 can help optimize routes, manage inventory, and reduce operational costs.
 •	Trend Analysis: GPT-4 can analyze industry news, reports, and global events (from sources like Event Registry or IMF API) to provide insights on trends that could affect supply chain operations.
 •	Text Mining: GPT-4 can analyze unstructured data (e.g., customer feedback, shipping records) to identify patterns and generate insights.
+
 3.3 How GPT-4 Works
 GPT-4 works by processing large amounts of text data to learn language patterns. It can generate human-like text, answer questions, and summarize documents. For a supply chain application, GPT-4 can be trained on industry-specific data to provide predictive analytics, summaries, and recommendations.
+
 3.4 Integrating GPT-4 in Python
 Here’s an example of how you might use GPT-4 via Python to analyze supply chain data:
 python
@@ -94,6 +103,7 @@ response = openai.Completion.create(
 )
 
 print(response.choices[0].text.strip())
+
 3.5 Key Learnings about GPT-4
 •	API Access: To access GPT-4, you’ll need an OpenAI API key. You can obtain this by signing up on OpenAI’s platform.
 •	Token Limit: GPT-4 has a token limit (the maximum amount of text it can process in one request). Be mindful of this when making requests.
