@@ -86,19 +86,30 @@ The code is organized into multiple Python scripts, each focusing on a specific 
 
 ## Project Structure
 •	main.py: Analyzes global tea production trends and plots them over time.
+
 •	risks.py: Focuses on analyzing tea production, yield, and harvested area trends, along with data flag distribution and comparisons between official and estimated data.
+
 •	importexport.py: Analyzes tea import/export trends based on trade data and plots quantity and trade value trends.
+
 •	tea_diseases.py: Downloads a dataset for identifying diseases in tea leaves and visualizes sample images from different disease categories.
+
 •	combined.py: Predicts the risk index of supply chain data using LightGBM, with hyperparameter tuning.
 
 ## Requirements
 •	Python 3.x
+
 •	pandas for data manipulation
+
 •	matplotlib for data visualization
+
 •	sklearn for machine learning
+
 •	lightgbm for LightGBM model
+
 •	kagglehub for downloading datasets
+
 •	PIL for image handling
+
 You can install the necessary libraries using pip:
 pip install pandas matplotlib scikit-learn lightgbm kagglehub Pillow
 
@@ -128,37 +139,57 @@ Run the combined.py script to predict the supply chain risk index based on histo
 
 1. main.py
 •	Functionality: Analyzes and plots global tea production trends over time.
+
 •	Key Steps:
+
 o	Loads and preprocesses the dataset.
+
 o	Aggregates production data by year.
+
 o	Plots the global tea production over time.
 
-2. risks.py
+3. risks.py
 •	Functionality: Analyzes tea production, yield, and harvested area trends, and compares official vs. estimated data.
+
 •	Key Steps:
+
 o	Filters production, yield, and area harvested data.
+
 o	Plots the trends for Argentina.
+
 o	Analyzes data flags for reliability.
 
-3. importexport.py
+5. importexport.py
 •	Functionality: Analyzes tea import/export data and visualizes trends.
+
 •	Key Steps:
+
 o	Filters data for tea-related commodities.
+
 o	Analyzes import/export flow data.
+
 o	Plots trends for quantity and trade value.
 
-4. tea_diseases.py
+7. tea_diseases.py
 •	Functionality: Downloads a dataset to identify diseases in tea leaves and displays sample images.
+
 •	Key Steps:
+
 o	Downloads the dataset using kagglehub.
+
 o	Displays sample images of tea diseases.
 
-5. combined.py
+9. combined.py
 •	Functionality: Predicts supply chain risks using LightGBM with hyperparameter tuning.
+
 •	Key Steps:
+
 o	Preprocesses the dataset (fills missing values and encodes categorical variables).
+
 o	Trains a LightGBM model.
+
 o	Performs hyperparameter tuning using GridSearchCV.
+
 o	Evaluates and compares model performance before and after tuning.
 
 ## Conclusion
