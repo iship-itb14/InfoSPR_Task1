@@ -138,6 +138,7 @@ Run the combined.py script to predict the supply chain risk index based on histo
 ## Code Overview
 
 1. main.py
+   
 •	Functionality: Analyzes and plots global tea production trends over time.
 
 •	Key Steps:
@@ -148,7 +149,8 @@ o	Aggregates production data by year.
 
 o	Plots the global tea production over time.
 
-3. risks.py
+2. risks.py
+   
 •	Functionality: Analyzes tea production, yield, and harvested area trends, and compares official vs. estimated data.
 
 •	Key Steps:
@@ -159,7 +161,8 @@ o	Plots the trends for Argentina.
 
 o	Analyzes data flags for reliability.
 
-5. importexport.py
+3. importexport.py
+   
 •	Functionality: Analyzes tea import/export data and visualizes trends.
 
 •	Key Steps:
@@ -170,7 +173,8 @@ o	Analyzes import/export flow data.
 
 o	Plots trends for quantity and trade value.
 
-7. tea_diseases.py
+4. tea_diseases.py
+
 •	Functionality: Downloads a dataset to identify diseases in tea leaves and displays sample images.
 
 •	Key Steps:
@@ -179,7 +183,7 @@ o	Downloads the dataset using kagglehub.
 
 o	Displays sample images of tea diseases.
 
-9. combined.py
+5. combined.py
 •	Functionality: Predicts supply chain risks using LightGBM with hyperparameter tuning.
 
 •	Key Steps:
