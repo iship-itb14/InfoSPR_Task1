@@ -1,4 +1,4 @@
-# Milestone/Task1: 
+# Milestone 1: 
 ## Supply Chain Management Project Documentation
 ### 1. Introduction
 
@@ -71,7 +71,7 @@ This project combines APIs for real-time data retrieval and GPT-4's capabilities
 
 
 
-# MILESTONE/TASK2:
+# MILESTONE 2:
 
 
 
