@@ -1,11 +1,12 @@
 # Milestone/Task1: 
 ## Supply Chain Management Project Documentation
-1. Introduction
+### 1. Introduction
+
 This project integrates real-time supply chain data using various APIs and employs GPT-4 for predictions and analysis in supply chain management.
 
 Task 1: Integrate data APIs with Python to retrieve and process real-time supply chain data.
 Task 2: Research GPT-4 (LLM) for applications in supply chain management, such as demand forecasting and trend analysis.
-2. Task 1: Integrating Data APIs with Python
+### 2. Task 1: Integrating Data APIs with Python
 What are APIs?
 APIs (Application Programming Interfaces) enable communication between different software systems. This project uses APIs to gather real-time data on shipping, inventory, global trade, and financials.
 
@@ -64,7 +65,7 @@ Key Learnings:
 API Access: Obtain an OpenAI API key.
 Token Limit: GPT-4 processes a limited amount of text per request.
 Fine-Tuning: Tailor GPT-4 for specific tasks like supply chain management.
-###4. Conclusion
+### 4. Conclusion
 This project combines APIs for real-time data retrieval and GPT-4's capabilities for data analysis and predictions to optimize supply chain operations.
 
 
