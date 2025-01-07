@@ -1,4 +1,4 @@
-InfoSPR_Task1: Supply Chain Management Project Documentation
+Milestone/Task1: Supply Chain Management Project Documentation
 1. Introduction
 This project integrates real-time supply chain data using various APIs and employs GPT-4 for predictions and analysis in supply chain management.
 
