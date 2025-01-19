@@ -199,5 +199,133 @@ o	Evaluates and compares model performance before and after tuning.
 ## Conclusion
 This project provides insights into the global tea production trends, risks, and supply chain management. The models built can be used to predict and mitigate risks in tea production and trade, and also help in disease identification in tea leaves for better quality control.
 
+# Milestone 3
+
+## Low Stock Alert System
+
+This project provides a framework for identifying low stock items within a supply chain dataset by simulating stock levels based on available features such as Production_Value, quantity, or other relevant metrics. The solution generates alerts for items with stock levels below a defined threshold and optionally saves these alerts to a CSV file.
+
+### Features
+
+Simulates stock levels using the Production_Value column.
+
+Dynamically calculates a low stock threshold based on the average stock levels in the dataset.
+
+Identifies and lists items with simulated stock levels below the threshold.
+
+Saves the low stock alerts to a CSV file for further analysis.
+
+Requirements
+
+Ensure the following Python libraries are installed before running the script:
+
+pandas
+
+numpy
+
+Install missing packages using:
+
+pip install pandas numpy
+
+Columns in the Dataset
+
+The dataset is expected to have the following columns:
+
+Domain Code: Code representing the domain.
+
+Domain: Description of the domain.
+
+Area Code (M49): Region code based on M49 classification.
+
+Region: Geographic region.
+
+Element Code: Code for the element.
+
+Element: Description of the element.
+
+Item Code (CPC): Item classification code.
+
+Item: Name of the item.
+
+Year Code: Numeric representation of the year.
+
+Year: Year of the record.
+
+Unit: Unit of measurement.
+
+Production_Value: Production metric used as a proxy for stock level.
+
+Flag, Flag Description, Note: Additional metadata.
+
+year: Alternate year field.
+
+comm_code: Commodity code.
+
+commodity: Name of the commodity.
+
+flow: Trade flow description.
+
+Trade_Value: Value of trade.
+
+weight_kg: Weight in kilograms.
+
+quantity_name: Name of the quantity.
+
+quantity: Quantity value.
+
+category: Category of the item.
+
+Risk_Index: Risk metric.
+
+How It Works
+
+Simulating Stock Levels:
+
+A new column, Simulated_Stock_Level, is derived from the Production_Value column.
+
+Defining the Threshold:
+
+The threshold for low stock is dynamically set to 30% of the average simulated stock level. This value can be adjusted in the code.
+
+Generating Alerts:
+
+Items with stock levels below the threshold are flagged.
+
+Alerts include the Domain, Region, Item, and Simulated_Stock_Level for easy identification.
+
+Saving Results:
+
+Low stock alerts are saved to a CSV file named low_stock_alerts.csv.
+
+Usage
+
+Place the dataset file in the same directory as the script. The file should be named combined_supply_chain_risk_data.csv.
+
+Run the script in Python:
+
+``python low_stock_alerts.py``
+
+Check the console for low stock alerts.
+
+Review the saved alerts in the low_stock_alerts.csv file.
+
+Example Output
+
+Console Alerts:
+
+Low Stock Alerts:
+Domain: Chemicals, Region: Europe, Item: Plastics, Simulated Stock Level: 40.00
+Domain: Textiles, Region: Africa, Item: Fabrics, Simulated Stock Level: 60.00
+
+Low stock alerts saved to 'low_stock_alerts.csv'.
+
+Customization
+
+Adjust Threshold: Modify the low_stock_threshold value to change the sensitivity of low stock detection.
+
+Alternative Metrics: Replace Production_Value with other columns like quantity or weight_kg if more suitable for stock level estimation.
+
+
+
 
 
