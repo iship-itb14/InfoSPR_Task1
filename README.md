@@ -325,6 +325,103 @@ Adjust Threshold: Modify the low_stock_threshold value to change the sensitivity
 
 Alternative Metrics: Replace Production_Value with other columns like quantity or weight_kg if more suitable for stock level estimation.
 
+# Task 4: Low Stock Notifications to Slack
+## Overview
+This project is designed to monitor the stock levels of items in a supply chain and send low stock notifications to a Slack channel. It uses the Slack Incoming Webhook to send notifications whenever an item’s stock reaches a threshold that is considered low.
+
+The code takes your Slack Webhook URL as input, checks the stock levels of items, and sends a notification to the specified Slack channel when an item's stock is below the defined threshold.
+
+## Prerequisites
+Python 3.x
+Libraries: requests (for sending HTTP requests to Slack)
+A Slack Workspace with a created Incoming Webhook URL.
+## How It Works
+Slack Webhook URL: You must provide a Slack Incoming Webhook URL, which the code will use to send messages to your Slack channel.
+Stock Levels Check: The code checks the stock level of different items.
+Threshold for Low Stock: If an item's stock level is below the specified threshold, a message will be sent to Slack.
+Notification: The code sends a custom message with the item details to a Slack channel.
+Setup Instructions
+Clone the repository:
+
+git clone <repository_url>
+cd <project_directory>
+Install Required Packages: Install the necessary Python libraries, such as requests:
+
+```pip install requests```
+Create Slack Incoming Webhook:
+
+Visit Slack Incoming Webhooks.
+Follow the steps to create a new webhook for your Slack workspace and channel.
+Copy the Webhook URL.
+Configure Webhook URL in the Code: Open the low_stock_notification.py file, and paste your Webhook URL into the variable SLACK_WEBHOOK_URL:
+
+
+SLACK_WEBHOOK_URL = "YOUR_SLACK_WEBHOOK_URL"
+
+### Code Explanation
+The script works as follows:
+
+1. Check Stock Levels:
+A dictionary (stock_levels) is used to store item names as keys and their respective stock levels as values. In the example:
+
+```stock_levels = {
+    'Tea Bags': 20,
+    'Green Tea': 5,
+    'Black Tea': 30
+}
+```
+2. Define Low Stock Threshold:
+The threshold for low stock is set to 10:
+
+LOW_STOCK_THRESHOLD = 10
+3. Slack Notification Function:
+The function send_slack_notification(item, quantity) sends a message to the specified Slack channel using the Webhook URL when an item’s stock level is below the threshold:
+
+```def send_slack_notification(item, quantity):
+    slack_message = {
+        "text": f"Low stock alert! Item: {item}, Stock left: {quantity}"
+    }
+    response = requests.post(SLACK_WEBHOOK_URL, json=slack_message)
+    if response.status_code != 200:
+        print(f"Error sending notification: {response.text}")
+```
+4. Main Logic to Check Stock:
+The script loops through each item in stock_levels, and if the stock is below the threshold, it triggers the Slack notification:
+
+```for item, quantity in stock_levels.items():
+    if quantity < LOW_STOCK_THRESHOLD:
+        send_slack_notification(item, quantity)
+```
+5. Sending Notifications:
+If the stock of any item is below the threshold, a message like this will appear in your Slack channel:
+
+Low stock alert! Item: Green Tea, Stock left: 5
+Running the Script
+Make sure to provide your Webhook URL in the code.
+
+Run the Python script to check the stock and send low stock notifications:
+
+```python low_stock_notification.py```
+If any item is below the threshold, you will receive a Slack notification.
+
+Example Output
+If you have the following stock levels:
+
+```stock_levels = {
+    'Tea Bags': 20,
+    'Green Tea': 5,
+    'Black Tea': 30
+}
+```
+And a threshold of 10, you would receive a Slack message:
+
+Low stock alert! Item: Green Tea, Stock left: 5
+
+### Troubleshooting
+No Notification Sent: Make sure the Webhook URL is correctly configured.
+Slack Error: Verify that the Webhook URL is valid and that your Slack workspace settings allow incoming webhooks.
+Other Errors: Check the console for any error messages related to requests.post().
+
 
 
 
