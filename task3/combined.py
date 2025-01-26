@@ -5,6 +5,53 @@ from sklearn.preprocessing import LabelEncoder
 import lightgbm as lgb
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import GridSearchCV
+import smtplib
+from email.mime.text import MIMEText
+import requests
+
+# Function to send email alerts
+def send_email_alerts(low_stock_items, recipient_email):
+    sender_email = input("Enter your Gmail address: ")
+    sender_password = input("Enter your Gmail password (or app-specific password): ")
+
+    subject = "Low Stock Alert"
+    body = "\n".join([
+        f"Domain: {row['Domain']}, Region: {row['Region']}, Item: {row['Item']}, "
+        f"Simulated Stock Level: {row['Simulated_Stock_Level']:.2f}"
+        for _, row in low_stock_items.iterrows()
+    ])
+
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = sender_email
+    msg["To"] = recipient_email
+
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, recipient_email, msg.as_string())
+        print("Email alerts sent successfully!")
+    except Exception as e:
+        print(f"Failed to send email alerts: {e}")
+
+# Function to send Slack alerts
+def send_slack_alerts(low_stock_items, webhook_url):
+    messages = [
+        f"Domain: {row['Domain']}, Region: {row['Region']}, Item: {row['Item']}, "
+        f"Simulated Stock Level: {row['Simulated_Stock_Level']:.2f}"
+        for _, row in low_stock_items.iterrows()
+    ]
+    for message in messages:
+        payload = {"text": message}
+        try:
+            response = requests.post(webhook_url, json=payload)
+            if response.status_code == 200:
+                print(f"Slack alert sent: {message}")
+            else:
+                print(f"Failed to send Slack alert: {response.status_code}, {response.text}")
+        except Exception as e:
+            print(f"Failed to send Slack alert: {e}")
 
 # Load the dataset
 data = pd.read_csv('combined_supply_chain_risk_data.csv')
@@ -83,32 +130,19 @@ print(f"1. Initial RMSE (before tuning): {rmse:.2f}")
 print(f"2. Optimized RMSE (after hyperparameter tuning): {rmse_best:.2f}")
 print(f"3. Best Hyperparameters:\n{best_params}")
 
-# Conclusion
-print("\nConclusion:")
-if rmse_best < rmse:
-    print(
-        "The model performance improved after hyperparameter tuning. The optimized model is better at predicting the risk index.")
-else:
-    print(
-        "The hyperparameter tuning did not significantly improve the model performance. Further tuning or model adjustments may be needed.")
-
-# Supply Chain Management Insights
-print("\nSupply Chain Management Insights:")
-if rmse_best < rmse:
-    print(
-        "With improved risk predictions, this model can help optimize supply chain risk management by identifying key risk factors and mitigating potential disruptions.")
-else:
-    print(
-        "The model provides a baseline for understanding supply chain risks, but further enhancements are necessary for more accurate predictions.")
-# Define a proxy for stock levels based on `Production_Value` or `quantity`
-# Use `Production_Value` as a proxy for stock levels
+# Define a proxy for stock levels based on Production_Value or quantity
 data['Simulated_Stock_Level'] = data['Production_Value']
 
 # Define a low stock threshold
-low_stock_threshold = data['Simulated_Stock_Level'].mean() * 0.3  # Example: 30% of the average production value
+low_stock_threshold = data['Simulated_Stock_Level'].mean() * 0.01
 
 # Identify items with low simulated stock
 low_stock_items = data[data['Simulated_Stock_Level'] < low_stock_threshold]
+
+# Remove duplicate entries based on specific columns (Domain, Region, Item) for stock level 0
+
+low_stock_items = low_stock_items[low_stock_items['Simulated_Stock_Level'] > 0]
+low_stock_items = low_stock_items.drop_duplicates(subset=['Domain', 'Region', 'Item'])
 
 # Print low stock alerts
 print("\nLow Stock Alerts:")
@@ -118,6 +152,18 @@ if not low_stock_items.empty:
               f"Simulated Stock Level: {row['Simulated_Stock_Level']:.2f}")
 else:
     print("No low stock items detected.")
+
+
+# Prompt user for notification method
+notify_method = input("Choose notification method (email/slack/none): ").lower()
+if notify_method == "email":
+    recipient_email = input("Enter recipient email address: ")
+    send_email_alerts(low_stock_items, recipient_email)
+elif notify_method == "slack":
+    slack_webhook_url = input("Enter Slack webhook URL: ")
+    send_slack_alerts(low_stock_items, slack_webhook_url)
+else:
+    print("No alerts sent.")
 
 # Optional: Save the alerts to a CSV file
 low_stock_items.to_csv('low_stock_alerts.csv', index=False)
